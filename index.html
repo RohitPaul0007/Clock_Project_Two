@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock</title>
+
+  <style>
+    body {
+      margin: 2;
+      background-color: aqua;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150vh;
+      background-color: rgb(75, 84, 211);
+    }
+
+    .clock {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 250px;
+      height: 250px;
+      background-color: rgb(250, 78, 116);
+      border-radius: 75%;
+      box-shadow: 0 0 25px rgb(176, 218, 164);
+    }
+
+    .date {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+    }
+
+    .time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="clock">
+      <div class="date"></div>
+      <div class="time">
+        <div class="hours"></div>
+        <div class="minutes"></div>
+        <div class="seconds"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var clock = document.querySelector('.clock');
+    var date = clock.querySelector('.date');
+    var time = clock.querySelector('.time');
+    var hours = time.querySelector('.hours');
+    var minutes = time.querySelector('.minutes');
+    var seconds = time.querySelector('.seconds');
+
+    function updateClock() {
+      var now = new Date();
+      var hoursText = now.getHours();
+      var minutesText = now.getMinutes();
+      var secondsText = now.getSeconds();
+
+      if (hoursText < 10) {
+        hoursText = '0' + hoursText;
+      }
+
+      if (minutesText < 10) {
+        minutesText = '0' + minutesText;
+      }
+
+      if (secondsText < 10) {
+        secondsText = '0' + secondsText;
+      }
+
+      hours.innerHTML = hoursText + ':';
+      minutes.innerHTML = minutesText + ':';
+      seconds.innerHTML = secondsText;
+    }
+
+    function updateDate() {
+      var now = new Date();
+      var day = now.getDate();
+      var month = now.getMonth() + 1;
+      var year = now.getFullYear();
+
+      if (day < 10) {
+        day = '0' + day;
+      }
+
+      var ordinals = day === '01' ? 'st' : day === '02' ? 'nd' : day === '03' ? 'rd' : 'th';
+
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      date.innerHTML = day + ordinals + ' ' + months[month - 1] + ', ' + year;
+    }
+
+    updateClock();
+    updateDate();
+
+    setInterval(updateClock, 1000);
+    setInterval(updateDate, 1000);
+  </script>
+</body>
+
+</html>
